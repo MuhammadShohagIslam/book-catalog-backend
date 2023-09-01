@@ -26,6 +26,16 @@ model User {
   @@map("users")
 }
 
+// model for Category 
+model Category {
+  id        String   @id @default(uuid())
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("categories")
+}
+
 enum UserRole {
   ADMIN
   CUSTOMER
