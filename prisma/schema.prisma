@@ -23,6 +23,9 @@ model User {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  reviewAndRatings ReviewAndRating[]
+  orders           Order[]
+
   @@map("users")
 }
 
@@ -32,7 +35,7 @@ model Category {
   title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  books      Book[]
+  books     Book[]
 
   @@map("categories")
 }
@@ -51,10 +54,50 @@ model Book {
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
+  reviewAndRatings ReviewAndRating[]
+
   @@map("books")
+}
+
+// model for review and rating   
+model ReviewAndRating {
+  id        String   @id @default(uuid())
+  review    String
+  rating    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  bookId String
+  book   Book   @relation(fields: [bookId], references: [id])
+
+  @@map("review_rating")
+}
+
+// model for order  
+model Order {
+  id        String      @id @default(uuid())
+  status    OrderStatus @default(pending)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  orderedBooks Json
+
+  @@map("orders")
 }
 
 enum UserRole {
   ADMIN
   CUSTOMER
+}
+
+enum OrderStatus {
+  pending
+  shipped
+  delivered
 }
