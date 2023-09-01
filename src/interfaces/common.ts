@@ -14,3 +14,8 @@ export type IGenericErrorResponse = {
   message: string;
   errorMessages: IGenericErrorMessage[];
 };
+
+export type ILoginUserResponse = {
+  token: string;
+};
+

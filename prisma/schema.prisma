@@ -12,16 +12,16 @@ datasource db {
 
 // model for user
 model User {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   name       String
-  email      String   @unique
+  email      String    @unique
   password   String
   profileImg String
   address    String
   contactNo  String
-  role       UserRole @default(CUSTOMER)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  role       UserRole @default(customer)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   reviewAndRatings ReviewAndRating[]
   orders           Order[]
@@ -92,8 +92,8 @@ model Order {
 }
 
 enum UserRole {
-  ADMIN
-  CUSTOMER
+  admin
+  customer
 }
 
 enum OrderStatus {
