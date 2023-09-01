@@ -26,14 +26,32 @@ model User {
   @@map("users")
 }
 
-// model for Category 
+// model for category 
 model Category {
   id        String   @id @default(uuid())
   title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  books      Book[]
 
   @@map("categories")
+}
+
+// model for book  
+model Book {
+  id              String   @id @default(uuid())
+  title           String
+  author          String
+  price           Float
+  genre           Float
+  publicationDate String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@map("books")
 }
 
 enum UserRole {
