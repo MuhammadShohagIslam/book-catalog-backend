@@ -16,7 +16,7 @@ const startServer = async () => {
   try {
     // server listening
     server = app.listen(config.port, () => {
-      logger.info(`SMA Core Service is Running on ${config.port}`);
+      logger.info(`Book Catalog is Running on ${config.port}`);
     });
   } catch (error) {
     if (error instanceof Error) {

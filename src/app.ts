@@ -18,7 +18,7 @@ app.use('/api/v1', AllRouters);
 
 // root router or health router
 app.get('/', (_req: Request, res: Response) => {
-  res.json('SMA Core Service is running');
+  res.json('Book Catalog is running');
 });
 
 // global error handler
