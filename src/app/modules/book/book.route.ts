@@ -7,21 +7,18 @@ const router = express.Router();
 
 router.post(
   '/create-book',
-  validateRequest(
-    BookValidation.createBookZodSchema
-  ),
+  validateRequest(BookValidation.createBookZodSchema),
   BookController.createBook
 );
 
+router.get('/:categoryId/category', BookController.getBooksByCategoryId);
 router.get('/', BookController.getAllBooks);
 
 router
   .route('/:id')
   .get(BookController.getSingleBook)
   .patch(
-    validateRequest(
-      BookValidation.updateBookZodSchema
-    ),
+    validateRequest(BookValidation.updateBookZodSchema),
     BookController.updateBook
   )
   .delete(BookController.deleteBook);

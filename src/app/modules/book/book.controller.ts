@@ -12,9 +12,7 @@ import { bookFilterableFields } from './book.constant';
 
 const createBook: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await BookService.createBook(
-      req.body
-    );
+    const result = await BookService.createBook(req.body);
 
     if (!result) {
       throw new ApiError(400, 'Failed to create Book!');
@@ -35,10 +33,7 @@ const getAllBooks: RequestHandler = catchAsync(
     const filters = pick(req.query, bookFilterableFields);
     // for pagination
     const paginationOption = pick(req.query, paginationOptionFields);
-    const result = await BookService.getAllBooks(
-      paginationOption,
-      filters
-    );
+    const result = await BookService.getAllBooks(paginationOption, filters);
 
     responseReturn<IGenericResponse<Book[]>>(res, {
       statusCode: httpStatus.OK,
@@ -49,12 +44,29 @@ const getAllBooks: RequestHandler = catchAsync(
   }
 );
 
+const getBooksByCategoryId: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const categoryId = req.params.categoryId;
+    // for pagination
+    const paginationOption = pick(req.query, paginationOptionFields);
+    const result = await BookService.getBooksByCategoryId(
+      categoryId,
+      paginationOption
+    );
+
+    responseReturn<IGenericResponse<Book[]>>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'All Books By Category Id retrieved successfully!',
+      data: result,
+    });
+  }
+);
+
 const getSingleBook: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id;
-    const result = await BookService.getSingleBook(
-      id
-    );
+    const result = await BookService.getSingleBook(id);
 
     responseReturn<Book>(res, {
       statusCode: httpStatus.OK,
@@ -70,10 +82,7 @@ const updateBook: RequestHandler = catchAsync(
     const id = req.params.id;
     const updatedData = req.body;
 
-    const result = await BookService.updateBook(
-      id,
-      updatedData
-    );
+    const result = await BookService.updateBook(id, updatedData);
 
     responseReturn<Book>(res, {
       statusCode: httpStatus.OK,
@@ -101,6 +110,7 @@ const deleteBook: RequestHandler = catchAsync(
 export const BookController = {
   createBook,
   getAllBooks,
+  getBooksByCategoryId,
   getSingleBook,
   updateBook,
   deleteBook,
