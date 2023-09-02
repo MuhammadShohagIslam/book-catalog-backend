@@ -43,7 +43,7 @@ const getAllOrders: RequestHandler = catchAsync(
 
 const getSingleOrder: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const orderId = req.query.orderId as string;
+    const orderId = req.params.orderId;
     const { ...decodedUser } = req.user as JwtPayload;
     const result = await OrderService.getSingleOrder(
       orderId,

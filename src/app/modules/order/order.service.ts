@@ -19,7 +19,6 @@ const createOrder = async (
 
   const createOrderObject = {
     userId,
-    role,
     orderedBooks: payload.orderedBooks,
   };
 
@@ -57,11 +56,11 @@ export const getAllOrders = async (
 };
 
 export const getSingleOrder = async (
-  id: string,
+  orderId: string,
   decodedUser: JwtPayload
 ): Promise<Order | null> => {
+  
   const { userId, role } = decodedUser;
-
   const isExitUser = await prisma.user.findUnique({
     where: {
       id: userId,
@@ -75,7 +74,7 @@ export const getSingleOrder = async (
     if (isExitUser?.id === userId) {
       result = await prisma.order.findUnique({
         where: {
-          id,
+          id: orderId,
           userId: userId,
         },
       });
@@ -87,7 +86,7 @@ export const getSingleOrder = async (
   if (userId && role === 'admin') {
     result = await prisma.order.findUnique({
       where: {
-        id,
+        id: orderId,
       },
     });
   }
