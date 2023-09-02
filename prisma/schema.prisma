@@ -79,7 +79,7 @@ model ReviewAndRating {
 // model for order  
 model Order {
   id        String      @id @default(uuid())
-  status    OrderStatus @default(pending)
+  status    OrderStatus? @default(pending)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 

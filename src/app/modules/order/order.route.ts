@@ -7,19 +7,23 @@ import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
-router
-  .route('/')
-  .post(
-    auth(ENUM_USER_ROLE.CUSTOMER),
-    validateRequest(OrderValidation.createOrderZodSchema),
-    OrderController.createOrder
-  )
-  .get(auth(ENUM_USER_ROLE.ADMIN), OrderController.getAllOrders);
+router.post(
+  '/create-order',
+  auth(ENUM_USER_ROLE.CUSTOMER),
+  validateRequest(OrderValidation.createOrderZodSchema),
+  OrderController.createOrder
+);
 
 router.get(
-  '/:id',
+  '/',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.CUSTOMER),
+  OrderController.getAllOrders
+);
+
+router.get(
+  '/:orderId',
   auth(ENUM_USER_ROLE.CUSTOMER),
-  OrderController.getOrdersByCustomer
+  OrderController.getSingleOrder
 );
 
 export const OrderRoutes = router;

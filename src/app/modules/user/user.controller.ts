@@ -7,6 +7,7 @@ import { pick } from '../../../shared/pick';
 import { paginationOptionFields } from '../../../constants/pagination';
 import { userFilterableFields } from './user.constant';
 import { User } from '@prisma/client';
+import { IGenericResponse } from '../../../interfaces/common';
 
 // get all users controller
 const getAllUsers: RequestHandler = catchAsync(
@@ -16,12 +17,11 @@ const getAllUsers: RequestHandler = catchAsync(
 
     const result = await UserService.getAllUsers(paginationOptions, filters);
 
-    responseReturn<User[]>(res, {
+    responseReturn<IGenericResponse<User[]>>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Users retrieved successfully!',
-      meta: result.meta,
-      data: result.data,
+      data: result,
     });
   }
 );
@@ -56,7 +56,6 @@ const updateUser: RequestHandler = catchAsync(
       message: 'User updated successfully!',
       data: result,
     });
-    
   }
 );
 
@@ -79,5 +78,5 @@ export const UserController = {
   getAllUsers,
   getSingleUser,
   updateUser,
-  deleteUser
+  deleteUser,
 };

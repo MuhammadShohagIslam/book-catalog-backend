@@ -9,9 +9,10 @@ import { Order } from '@prisma/client';
 
 const createOrder: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
+    const { ...decodedUser } = req.user as JwtPayload;
     const { ...orderData } = req.body;
 
-    const result = await OrderService.createOrder(orderData);
+    const result = await OrderService.createOrder(decodedUser, orderData);
 
     if (!result) {
       throw new ApiError(400, 'Failed to Create Order!');
@@ -25,11 +26,13 @@ const createOrder: RequestHandler = catchAsync(
   }
 );
 
+
 const getAllOrders: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await OrderService.getAllOrders();
+    const { ...decodedUser } = req.user as JwtPayload;
+    const result = await OrderService.getAllOrders(decodedUser);
 
-    responseReturn<Order[]>(res, {
+    responseReturn<Order[] | null>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Orders retrieved successfully!',
@@ -38,15 +41,19 @@ const getAllOrders: RequestHandler = catchAsync(
   }
 );
 
-const getOrdersByCustomer: RequestHandler = catchAsync(
+const getSingleOrder: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
+    const orderId = req.query.orderId as string;
     const { ...decodedUser } = req.user as JwtPayload;
-    const result = await OrderService.getOrdersByCustomer(decodedUser);
+    const result = await OrderService.getSingleOrder(
+      orderId,
+      decodedUser
+    );
 
-    responseReturn<Order[] | null>(res, {
+    responseReturn<Order | null>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'All Orders By Customer retrieved successfully!',
+      message: 'Order fetched successfully!',
       data: result,
     });
   }
@@ -55,5 +62,5 @@ const getOrdersByCustomer: RequestHandler = catchAsync(
 export const OrderController = {
   createOrder,
   getAllOrders,
-  getOrdersByCustomer,
+  getSingleOrder,
 };
