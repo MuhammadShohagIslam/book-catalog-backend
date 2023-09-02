@@ -60,6 +60,9 @@ const getAllCategories = async (
     skip,
     take: limit,
     orderBy: sortCondition,
+    include: {
+      books: true,
+    },
   });
 
   const total = await prisma.category.count({
@@ -80,6 +83,9 @@ const getSingleCategory = async (payload: string): Promise<Category | null> => {
   const result = await prisma.category.findUnique({
     where: {
       id: payload,
+    },
+    include: {
+      books: true,
     },
   });
   return result;
@@ -104,7 +110,6 @@ const deleteCategory = async (payload: string): Promise<Category | null> => {
   });
   return result;
 };
-
 
 export const CategoryService = {
   createCategory,

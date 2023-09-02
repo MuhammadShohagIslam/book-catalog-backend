@@ -46,7 +46,7 @@ model Book {
   title           String
   author          String
   price           Float
-  genre           Float
+  genre           String
   publicationDate String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
