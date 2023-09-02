@@ -11,6 +11,8 @@ import {
   bookRelationalFieldsMapper,
   bookSearchableFields,
 } from './book.constant';
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 
 const createBook = async (payload: Book): Promise<Book | null> => {
   const result = await prisma.book.create({
@@ -26,21 +28,47 @@ const getAllBooks = async (
   paginationOption: PaginationOptionType,
   filters: BookFieldsType
 ): Promise<IGenericResponse<Book[]>> => {
-  const { searchTerm, ...filterData } = filters;
-  const { page, limit, sortBy, sortOrder, skip } =
+  const { search, minPrice, maxPrice, ...filterData } = filters;
+  const { page, size, sortBy, sortOrder, skip } =
     paginationHelper.calculatePagination(paginationOption);
 
   // for dynamic searching
   const addCondition = [];
-  if (searchTerm) {
+  if (search) {
     addCondition.push({
       OR: bookSearchableFields.map(item => ({
         [item]: {
-          contains: searchTerm,
+          contains: search,
           mode: 'insensitive',
         },
       })),
     });
+  }
+
+  // filtering price range
+  if (minPrice || maxPrice) {
+    // check price is number or string value, if string, throw error
+    if (isNaN(Number(minPrice)) || isNaN(Number(maxPrice))) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid Price Range Value');
+    }
+
+    const priceCondition: Partial<{ price: { gte?: number; lte?: number } }> =
+      {};
+
+    if (minPrice) {
+      priceCondition.price = {
+        gte: Number(minPrice),
+      };
+    }
+
+    if (maxPrice) {
+      priceCondition.price = {
+        ...priceCondition.price,
+        lte: Number(maxPrice),
+      };
+    }
+
+    addCondition.push(priceCondition);
   }
 
   // for dynamic filtering
@@ -80,7 +108,7 @@ const getAllBooks = async (
       category: true,
     },
     skip,
-    take: limit,
+    take: size,
     orderBy: sortCondition,
   });
 
@@ -92,7 +120,7 @@ const getAllBooks = async (
     meta: {
       page,
       total,
-      limit,
+      size,
     },
     data: result,
   };

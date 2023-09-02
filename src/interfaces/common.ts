@@ -4,7 +4,7 @@ export type IGenericResponse<T> = {
   meta: {
     page: number;
     total: number;
-    limit: number;
+    size: number;
   };
   data: T | null;
 };

@@ -2,7 +2,7 @@ export type SortOrder = 'asc' | 'desc';
 
 type PaginationReturnType = {
   page: number;
-  limit: number;
+  size: number;
   sortBy: string;
   sortOrder: SortOrder;
   skip: number;
@@ -10,21 +10,21 @@ type PaginationReturnType = {
 
 type OptionType = {
   page?: number;
-  limit?: number;
+  size?: number;
   sortBy?: string;
   sortOrder?: SortOrder;
 };
 
 const calculatePagination = (options: OptionType): PaginationReturnType => {
   const page = Number(options.page || 1);
-  const limit = Number(options.limit || 10);
-  const skip = (page - 1) * limit;
+  const size = Number(options.size || 10);
+  const skip = (page - 1) * size;
   const sortBy = options.sortBy || 'createdAt';
   const sortOrder = options.sortOrder || 'desc';
 
   return {
     page,
-    limit,
+    size,
     sortBy,
     sortOrder,
     skip,

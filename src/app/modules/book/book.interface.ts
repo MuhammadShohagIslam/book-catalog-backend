@@ -1,3 +1,5 @@
 export type BookFieldsType = {
-  searchTerm?: string;
+  search?: string;
+  minPrice?: string;
+  maxPrice?: string;
 };
