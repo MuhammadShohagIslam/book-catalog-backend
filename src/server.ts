@@ -1,11 +1,11 @@
 import config from './config';
 import app from './app';
-import { logger, errorLogger } from './shared/logger';
+// import { logger, errorLogger } from './shared/logger';
 import { Server } from 'http';
 
 // handle uncaught exception error if any developer take mistake, work it synchronous
 process.on('uncaughtException', error => {
-  errorLogger.error(error);
+  console.log(error);
   process.exit(1);
 });
 
@@ -16,11 +16,11 @@ const startServer = async () => {
   try {
     // server listening
     server = app.listen(config.port, () => {
-      logger.info(`Book Catalog is Running on ${config.port}`);
+      console.log(`Book Catalog is Running on ${config.port}`);
     });
   } catch (error) {
     if (error instanceof Error) {
-      errorLogger.error(error.message);
+      console.log(error.message);
     }
   }
 
@@ -30,7 +30,7 @@ const startServer = async () => {
     // otherwise server stop immediately
     if (server) {
       server.close(() => {
-        errorLogger.error(error);
+        console.log(error);
         process.exit(1);
       });
     } else {
@@ -45,7 +45,7 @@ startServer();
 // we can send signal to stop process
 process.on('SIGTERM', () => {
   // since we would like to stop server, so we can use info
-  logger.info('Signal termination is received');
+  console.log('Signal termination is received');
   if (server) {
     server.close();
   }
