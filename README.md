@@ -26,3 +26,16 @@
 - Getting admin and customer info with User My-Profile ( GET ) Router [api/v1/profile](https://authentication2-phi.vercel.app/api/v1/users/my-profile)
 
   <br>
+
+### Category Routes:
+
+- Creating Category with Category ( POST ) Router [api/v1/categories](https://authentication2-phi.vercel.app/api/v1/cows)
+
+- Getting all Categories with Cow ( GET ) Router [api/v1/categories](https://authentication2-phi.vercel.app/api/v1/cows)
+
+- Getting Single Category with Category ( GET ) Router [api/v1/categories/7c5666de-f133-4965-bf2c-e2a19bb4b69d](https://authentication2-phi.vercel.app/api/v1/cows/648f54a113dff37a10ae460a)
+
+- Updating Category with ( PATCH ) Router [api/v1/categories/7c5666de-f133-4965-bf2c-e2a19bb4b69d](https://authentication2-phi.vercel.app/api/v1/cows/648e6f19aad52f3477406717)
+
+- Deleting Category with ( DELETE ) Router [api/v1/categories/7c5666de-f133-4965-bf2c-e2a19bb4b69d](https://authentication2-phi.vercel.app/api/v1/cows/648e6f7c886169dd566c50a4)
+  <br>
