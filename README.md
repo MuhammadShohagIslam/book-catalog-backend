@@ -16,9 +16,9 @@
 
 - Getting Single User with User ( GET ) Router [api/v1/users/649fd756bc1335f9538c360e](https://.vercel.app/api/v1/users/6491e5290e379761d0bbc45a)
 
-- Updating User with ( PATCH ) Router [api/v1/users/649fd756bc1335f9538c360e](https://.vercel.app/api/v1/users/6491e5290e379761d0bbc45a)
+- Updating User with ( PATCH ) Router [api/v1/users/649fd756bc1335f9538c360e](https://.vercel.app/api/v1/users/6491e5290e379761d0bbc45a) ---  Only Allowed For Admin
 
-- Deleting User with ( DELETE ) Router [api/v1/users/649fd756bc1335f9538c360e](https://.vercel.app/api/v1/users/6491e5290e379761d0bbc45a)
+- Deleting User with ( DELETE ) Router [api/v1/users/649fd756bc1335f9538c360e](https://.vercel.app/api/v1/users/6491e5290e379761d0bbc45a) ---  Only Allowed For Admin
   <br>
 
 ### User My Profile Routes:
@@ -42,7 +42,7 @@
 
 ### Book Routes:
 
-- Creating Book with Book ( POST ) Router [api/v1/books](https://authentication2-phi.vercel.app/api/v1/cows)
+- Creating Book with Book ( POST ) Router [api/v1/books](https://authentication2-phi.vercel.app/api/v1/cows) ---  Only Allowed For Admin
 
 - Getting all Books with Books ( GET ) Router [api/v1/books](https://authentication2-phi.vercel.app/api/v1/cows)
 
@@ -50,7 +50,15 @@
 
 - Get Books By CategoryId ( GET ) Router [api/v1/books/fae1e1eb-0b3e-43d8-b733-fa1feb4d33ef/category](https://authentication2-phi.vercel.app/api/v1/cows/648f54a113dff37a10ae460a)
 
-- Updating Book with ( PATCH ) Router [api/v1/books/fae1e1eb-0b3e-43d8-b733-fa1feb4d33ef](https://authentication2-phi.vercel.app/api/v1/cows/648e6f19aad52f3477406717)
+- Updating Book with ( PATCH ) Router [api/v1/books/fae1e1eb-0b3e-43d8-b733-fa1feb4d33ef](https://authentication2-phi.vercel.app/api/v1/cows/648e6f19aad52f3477406717) ---  Only Allowed For Admin
 
-- Deleting Book with ( DELETE ) Router [api/v1/books/fae1e1eb-0b3e-43d8-b733-fa1feb4d33ef](https://authentication2-phi.vercel.app/api/v1/cows/648e6f7c886169dd566c50a4)
+- Deleting Book with ( DELETE ) Router [api/v1/books/fae1e1eb-0b3e-43d8-b733-fa1feb4d33ef](https://authentication2-phi.vercel.app/api/v1/cows/648e6f7c886169dd566c50a4) ---  Only Allowed For Admin
   <br>
+
+### Order Routes:
+
+- Creating Order with Order ( POST ) Router [api/v1/orders](https://authentication2-phi.vercel.app/api/v1/orders) --- Only Allow Customer User
+
+- Getting all Orders with Order ( GET ) Router [api/v1/orders](https://authentication2-phi.vercel.app/api/v1/orders) --- Only Allow Customer And Admin User 
+
+- Getting Single Order with Order ( GET ) Router [api/v1/orders/e4f73309-ed5e-4b9b-88ac-206b6f2d9773](https://authentication2-phi.vercel.app/api/v1/orders/6491e5c10e379761d0bbc45f) --- Only Allow Customer And Admin User 
