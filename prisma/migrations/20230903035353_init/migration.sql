@@ -4,8 +4,21 @@ CREATE TYPE "UserRole" AS ENUM ('admin', 'customer');
 -- CreateEnum
 CREATE TYPE "OrderStatus" AS ENUM ('pending', 'shipped', 'delivered');
 
--- AlterTable
-ALTER TABLE "users" ADD COLUMN     "role" "UserRole" NOT NULL DEFAULT 'customer';
+-- CreateTable
+CREATE TABLE "users" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "profileImg" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "contactNo" TEXT NOT NULL,
+    "role" "UserRole" NOT NULL DEFAULT 'customer',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "categories" (
@@ -23,7 +36,7 @@ CREATE TABLE "books" (
     "title" TEXT NOT NULL,
     "author" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
-    "genre" DOUBLE PRECISION NOT NULL,
+    "genre" TEXT NOT NULL,
     "publicationDate" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -48,7 +61,7 @@ CREATE TABLE "review_rating" (
 -- CreateTable
 CREATE TABLE "orders" (
     "id" TEXT NOT NULL,
-    "status" "OrderStatus" NOT NULL DEFAULT 'pending',
+    "status" "OrderStatus" DEFAULT 'pending',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "userId" TEXT NOT NULL,
@@ -56,6 +69,9 @@ CREATE TABLE "orders" (
 
     CONSTRAINT "orders_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- AddForeignKey
 ALTER TABLE "books" ADD CONSTRAINT "books_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

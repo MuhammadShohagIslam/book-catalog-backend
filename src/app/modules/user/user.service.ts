@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SortOrder, paginationHelper } from '../../../helpers/paginationHelper';
-import { UserFilterOptionType } from './user.interface';
+import { UserFilterOptionType, UserResponse } from './user.interface';
 import { IGenericResponse } from '../../../interfaces/common';
 import { userSearchableFields } from './user.constant';
 import ApiError from '../../../errors/ApiError';
@@ -13,7 +13,7 @@ import { prisma } from '../../../shared/prisma';
 const getAllUsers = async (
   paginationOption: PaginationOptionType,
   filters: UserFilterOptionType
-): Promise<IGenericResponse<User[]>> => {
+): Promise<IGenericResponse<UserResponse[]>> => {
   const { page, size, sortBy, sortOrder, skip } =
     paginationHelper.calculatePagination(paginationOption);
   const { searchTerm, ...filtersData } = filters;
@@ -50,6 +50,17 @@ const getAllUsers = async (
 
   const result = await prisma.user.findMany({
     where: whereCondition,
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      contactNo: true,
+      address: true,
+      profileImg: true,
+      createdAt: true,
+      updatedAt: true,
+    },
     orderBy: sortCondition,
     skip,
     take: size,
@@ -69,10 +80,21 @@ const getAllUsers = async (
 };
 
 // get single user service
-const getSingleUser = async (data: string): Promise<User | null> => {
+const getSingleUser = async (data: string): Promise<UserResponse | null> => {
   const result = await prisma.user.findFirst({
     where: {
       id: data,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      contactNo: true,
+      address: true,
+      profileImg: true,
+      createdAt: true,
+      updatedAt: true,
     },
   });
   return result;
