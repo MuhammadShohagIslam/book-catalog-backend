@@ -12,9 +12,9 @@
 
 - Login User with Auth Login ( POST ) Router [api/v1/auth/login](https://book-store-backend-orpin.vercel.app/api/v1/auth/login)
 
-- Getting all users with User ( GET ) Router [api/v1/users](https://book-store-backend-orpin.vercel.app/api/v1/users)
+- Getting all users with User ( GET ) Router [api/v1/users](https://book-store-backend-orpin.vercel.app/api/v1/users) ---  Only Allowed For Admin
 
-- Getting Single User with User ( GET ) Router [api/v1/users/649fd756bc1335f9538c360e](https://book-store-backend-orpin.vercel.app/api/v1/users/6491e5290e379761d0bbc45a)
+- Getting Single User with User ( GET ) Router [api/v1/users/649fd756bc1335f9538c360e](https://book-store-backend-orpin.vercel.app/api/v1/users/6491e5290e379761d0bbc45a) ---  Only Allowed For Admin
 
 - Updating User with ( PATCH ) Router [api/v1/users/649fd756bc1335f9538c360e](https://book-store-backend-orpin.vercel.app/api/v1/users/6491e5290e379761d0bbc45a) ---  Only Allowed For Admin
 
@@ -23,21 +23,21 @@
 
 ### User My Profile Routes:
 
-- Getting admin and customer info with User My-Profile ( GET ) Router [api/v1/profile](https://book-store-backend-orpin.vercel.app/api/v1/users/my-profile)
+- Getting admin and customer info with User My-Profile ( GET ) Router [api/v1/profile](https://book-store-backend-orpin.vercel.app/api/v1/users/my-profile) --- Only Allow Customer And Admin User
 
   <br>
 
 ### Category Routes:
 
-- Creating Category with Category ( POST ) Router [api/v1/categories](https://book-store-backend-orpin.vercel.app/api/v1/categories)
+- Creating Category with Category ( POST ) Router [api/v1/categories](https://book-store-backend-orpin.vercel.app/api/v1/categories) ---  Only Allowed For Admin
 
 - Getting all Categories with Categories ( GET ) Router [api/v1/categories](https://book-store-backend-orpin.vercel.app/api/v1/categories)
 
 - Getting Single Category with Category ( GET ) Router [api/v1/categories/7c5666de-f133-4965-bf2c-e2a19bb4b69d](https://book-store-backend-orpin.vercel.app/api/v1/categories/648f54a113dff37a10ae460a)
 
-- Updating Category with ( PATCH ) Router [api/v1/categories/7c5666de-f133-4965-bf2c-e2a19bb4b69d](https://book-store-backend-orpin.vercel.app/api/v1/categories/648e6f19aad52f3477406717)
+- Updating Category with ( PATCH ) Router [api/v1/categories/7c5666de-f133-4965-bf2c-e2a19bb4b69d](https://book-store-backend-orpin.vercel.app/api/v1/categories/648e6f19aad52f3477406717) ---  Only Allowed For Admin
 
-- Deleting Category with ( DELETE ) Router [api/v1/categories/7c5666de-f133-4965-bf2c-e2a19bb4b69d](https://book-store-backend-orpin.vercel.app/api/v1/categories/648e6f7c886169dd566c50a4)
+- Deleting Category with ( DELETE ) Router [api/v1/categories/7c5666de-f133-4965-bf2c-e2a19bb4b69d](https://book-store-backend-orpin.vercel.app/api/v1/categories/648e6f7c886169dd566c50a4) ---  Only Allowed For Admin
   <br>
 
 ### Book Routes:
